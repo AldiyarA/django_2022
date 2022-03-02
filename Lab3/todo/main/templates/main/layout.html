@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../static/style.css">
+</head>
+<body>
+
+    <div class="top-bar">
+        <h1>BFDjango TODO</h1>
+    </div>
+
+    <div class="block-1">
+        <button class="add-task">Add Task</button>
+
+        <h1 class="title">
+            {% block title %}{% endblock %}
+        </h1>
+
+        <table>
+            <tr class="table-row">
+                <th class="table-data">Task</th>
+                <th class="table-data">Created</th>
+                <th class="table-data">Due in</th>
+                <th class="table-data">Owner</th>
+                <th class="table-data">Mark</th>
+            </tr>
+
+            {% for todo in todos %}
+                <tr class="row">
+                    <td class="todo-name">{{todo['name']}}</td>
+                    <td>{{todo['created']}}</td>
+                    <td>{{todo['due']}}</td>
+                    <td>{{todo['owner']}}</td>
+                    <td>
+                        <button class="done-btn">
+                            {% if 'Done' == todo['mark'] %}
+                                Not Done
+                            {% else %}
+                                Done
+                            {% endif %}
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <div class="action-btns">
+            <button class="action-btn yellow-btn">{% block page_name %}{% endblock %}</button>
+            <button class="action-btn red-btn">Delete this list</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+body{
+    font-family: Calibri,serif;
+}
+.block-1{
+    margin: 0 110px;
+}
+.title{
+    font-size: 50px;
+    padding: 20px 0;
+    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+    margin: 30px 0 0 0;
+}
+.top-bar{
+    background: black;
+    color: white;
+    padding: 10px 40px;
+}
+.add-task{
+    background: #0883f0;
+    color: white;
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+table {
+    width: 100%;
+    text-align: left;
+    font-size: 30px;
+    border-collapse: collapse;
+}
+td, th{
+    padding: 15px 0;
+}
+
+.row{
+    border-top: solid #aaa 1px;
+}
+.done-btn{
+    background: #0d98ba;
+    color: white;
+    font-size: 18px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 8px;
+}
+.todo-name{
+    color: #0883f0;
+}
+.action-btns{
+    margin: 30px 0 0;
+}
+.action-btn{
+    font-size: 20px;
+    /*height: 30px;*/
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+}
+.yellow-btn{
+    background: #ffb160;
+    /*font-weight: bold;*/
+}
+.red-btn{
+    background: red;
+    margin-left: 5px;
+    color: white;
+}
