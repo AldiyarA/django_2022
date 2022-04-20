@@ -29,12 +29,12 @@
             {% for todo in todos %}
                 <tr class="row">
                     <td class="todo-name">{{todo['name']}}</td>
-                    <td>{{todo['created']}}</td>
-                    <td>{{todo['due']}}</td>
+                    <td>{{todo.created.strftime("%Y/%m/%d")}}</td>
+                    <td>{{todo.due.strftime("%Y/%m/%d")}}</td>
                     <td>{{todo['owner']}}</td>
                     <td>
                         <button class="done-btn">
-                            {% if 'Done' == todo['mark'] %}
+                            {% if todo['mark'] %}
                                 Not Done
                             {% else %}
                                 Done

@@ -1,8 +1,10 @@
 from django.urls import path
 
-from main.views import todo_list, completed_todo_list
+from main.views import *
 
 urlpatterns = [
-    path('', todo_list),
-    path('1/completed/', completed_todo_list),
+    path('<int:list_id>/', TaskListAPIView.as_view()),
+    path('<int:list_id>/completed/', CompletedTaskListAPIView.as_view()),
+    path('tasks/', TasksAPIView.as_view()),
+    path('tasks/<int:pk>/', TaskDetailAPIView.as_view()),
 ]

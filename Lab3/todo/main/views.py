@@ -1,6 +1,10 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from jinja2 import FileSystemLoader, Environment
+from django.http import Http404
+from rest_framework import permissions, generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from main.models import Task, List
+from main.serializers import TaskListSerializer, TaskDetailSerializer
 
 
 # Create your views here.
@@ -16,19 +20,40 @@ def db():
     return tasks
 
 
-def todo_list(request):
-    fl = FileSystemLoader("main/templates/main")
-    env = Environment(loader=fl)
+class TaskListAPIView(APIView):
 
-    tm = env.get_template('todo_list.html')
-    tasks = [i for i in db() if i['mark'] == "Not Done"]
-    return HttpResponse(tm.render(todos=tasks))
+    def get(self, request, list_id):
+        try:
+            list = List.objects.get(pk=list_id)
+        except List.DoesNotExist:
+            raise Http404
+
+        tasks = list.tasks
+        serializer = TaskListSerializer(tasks, many=True)
+        return Response(serializer.data)
 
 
-def completed_todo_list(request):
-    fl = FileSystemLoader("main/templates/main")
-    env = Environment(loader=fl)
+class CompletedTaskListAPIView(APIView):
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    tm = env.get_template('completed_todo_list.html')
-    tasks = [i for i in db() if i['mark'] == "Done"]
-    return HttpResponse(tm.render(todos=tasks))
+    def get(self, request, list_id):
+        try:
+            list = List.objects.get(pk=list_id)
+        except List.DoesNotExist:
+            raise Http404
+
+        tasks = list.tasks.filter(mark=True)
+        serializer = TaskListSerializer(tasks, many=True)
+        return Response(serializer.data)
+
+
+class TasksAPIView(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = Task.objects.all()
+    serializer_class = TaskDetailSerializer
+
+
+class TaskDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = Task.objects.all()
+    serializer_class = TaskDetailSerializer
